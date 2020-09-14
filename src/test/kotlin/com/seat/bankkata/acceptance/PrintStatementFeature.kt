@@ -30,7 +30,7 @@ class PrintStatementsFeature {
     }
 
     @Test
-    fun print_statement_contains_all_transactions_in_descending_order() {
+    fun `print statement contains all transactions in descending order`() {
         given(clock.today()).willReturn(LocalDate.of(2014, 4, 1))
         account.deposit(1000)
         given(clock.today()).willReturn(LocalDate.of(2014, 4, 2))
