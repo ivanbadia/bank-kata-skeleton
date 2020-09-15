@@ -31,11 +31,11 @@ class PrintStatementsFeature {
 
     @Test
     fun `print statement contains all transactions in descending order`() {
-        given(clock.today()).willReturn(LocalDate.of(2014, 4, 1))
+        given(clock.today()).willReturn("01/04/2014")
         account.deposit(1000)
-        given(clock.today()).willReturn(LocalDate.of(2014, 4, 2))
+        given(clock.today()).willReturn("02/04/2014")
         account.withdraw(100)
-        given(clock.today()).willReturn(LocalDate.of(2014, 4, 10))
+        given(clock.today()).willReturn("10/04/2014")
         account.deposit(500)
 
         account.printStatement()
