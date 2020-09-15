@@ -2,21 +2,21 @@ package com.seat.bankkata.acceptance
 
 import com.seat.bankkata.AccountService
 import com.seat.bankkata.Clock
+import io.mockk.every
+import io.mockk.impl.annotations.MockK
+import io.mockk.junit5.MockKExtension
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import org.mockito.BDDMockito.given
-import org.mockito.Mock
-import org.mockito.junit.jupiter.MockitoExtension
 import java.io.ByteArrayOutputStream
 import java.io.PrintStream
 import java.time.LocalDate
 
 
-@ExtendWith(MockitoExtension::class)
+@ExtendWith(MockKExtension::class)
 class PrintStatementsFeature {
-    @Mock
+    @MockK
     private lateinit var clock: Clock
 
     private lateinit var account: AccountService
@@ -31,12 +31,11 @@ class PrintStatementsFeature {
 
     @Test
     fun `print statement contains all transactions in descending order`() {
-        given(clock.today()).willReturn(LocalDate.of(2014, 4, 1))
-        account.deposit(1000)
-        given(clock.today()).willReturn(LocalDate.of(2014, 4, 2))
-        account.withdraw(100)
-        given(clock.today()).willReturn(LocalDate.of(2014, 4, 10))
-        account.deposit(500)
+        every { clock.today() } returnsMany listOf(
+            LocalDate.of(2014, 4, 1),
+            LocalDate.of(2014, 4, 2),
+            LocalDate.of(2014, 4, 10)
+        )
 
         account.printStatement()
 
