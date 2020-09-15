@@ -17,14 +17,14 @@ class AccountServiceShould {
     private lateinit var transactionRepository: TransactionRepository
     @MockK
     private lateinit var clock: Clock
-    @MockK
+    @MockK(relaxUnitFun = true)
     private lateinit var statementPrinter: StatementPrinter
 
     private lateinit var accountService: AccountService
 
     @BeforeEach
     internal fun setUp() {
-        accountService = AccountService(clock, transactionRepository)
+        accountService = AccountService(clock, transactionRepository, statementPrinter)
     }
 
     @Test
@@ -50,9 +50,18 @@ class AccountServiceShould {
         verify { transactionRepository.add(transaction) }
     }
 
+    @Test
+    fun `print statement`() {
+        every { transactionRepository.all() } returns TRANSACTIONS
+
+        accountService.printStatement()
+
+        verify { statementPrinter.print(TRANSACTIONS) }
+    }
 
     companion object {
         private val TODAY : LocalDate = LocalDate.now()
+        private val TRANSACTIONS: List<Transaction> = listOf(Transaction(TODAY, 300))
     }
 
 }

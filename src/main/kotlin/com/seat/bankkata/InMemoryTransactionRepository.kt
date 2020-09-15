@@ -5,4 +5,8 @@ class InMemoryTransactionRepository : TransactionRepository {
         TODO("Not yet implemented")
     }
 
+    override fun all(): List<Transaction> {
+        TODO("Not yet implemented")
+    }
+
 }

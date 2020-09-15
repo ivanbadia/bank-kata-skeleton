@@ -1,8 +1,6 @@
 package com.seat.bankkata.acceptance
 
-import com.seat.bankkata.AccountService
-import com.seat.bankkata.Clock
-import com.seat.bankkata.InMemoryTransactionRepository
+import com.seat.bankkata.*
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
@@ -26,7 +24,7 @@ class PrintStatementsFeature {
 
     @BeforeEach
     fun setUp() {
-        account = AccountService(clock, InMemoryTransactionRepository())
+        account = AccountService(clock, InMemoryTransactionRepository(), ConsoleStatementPrinter())
         redirectConsoleOutputTo(output)
     }
 

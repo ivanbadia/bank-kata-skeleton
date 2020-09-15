@@ -1,6 +1,10 @@
 package com.seat.bankkata
 
-class AccountService(val clock: Clock, val transactionRepository: TransactionRepository) {
+class AccountService(
+    val clock: Clock,
+    val transactionRepository: TransactionRepository,
+    val statementPrinter: StatementPrinter
+) {
     fun deposit(amount: Int) {
         transactionRepository.add(Transaction(clock.today(), amount))
     }
@@ -10,6 +14,7 @@ class AccountService(val clock: Clock, val transactionRepository: TransactionRep
     }
 
     fun printStatement() {
-        TODO("Not implemented")
+        val transactions = transactionRepository.all()
+        statementPrinter.print(transactions)
     }
 }
