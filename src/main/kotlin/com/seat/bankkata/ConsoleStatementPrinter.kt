@@ -10,7 +10,8 @@ import java.util.*
 private val DATE_TIME_FORMATTER: DateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
 private const val STATEMENT_HEADER = "DATE | AMOUNT | BALANCE"
 
-class ConsoleStatementPrinter(val console: Console) : StatementPrinter {
+class ConsoleStatementPrinter(private val console: Console) : StatementPrinter {
+
     override fun print(transactions: List<Transaction>) {
         printHeader()
         printStatementLinesFor(transactions)
@@ -42,6 +43,6 @@ class ConsoleStatementPrinter(val console: Console) : StatementPrinter {
 
     private fun formatNumber(amount: Int): String {
         val decimalFormat = DecimalFormat("#.00", DecimalFormatSymbols.getInstance(Locale.UK))
-        return decimalFormat.format(amount.toLong())
+        return decimalFormat.format(amount)
     }
 }
