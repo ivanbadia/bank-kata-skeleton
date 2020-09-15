@@ -3,6 +3,7 @@ package com.seat.bankkata
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
 import io.mockk.verifyOrder
+import io.mockk.verifySequence
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -30,7 +31,7 @@ internal class ConsoleStatementPrinterShould {
 
         statementPrinter.print(transactions)
 
-        verifyOrder {
+        verifySequence {
             console.printLine("DATE | AMOUNT | BALANCE")
             console.printLine("10/04/2014 | 500.00 | 1400.00")
             console.printLine("02/04/2014 | -100.00 | 900.00")
