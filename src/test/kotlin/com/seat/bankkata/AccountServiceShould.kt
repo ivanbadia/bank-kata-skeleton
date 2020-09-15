@@ -11,10 +11,14 @@ import java.time.LocalDate
 
 @ExtendWith(MockKExtension::class)
 class AccountServiceShould {
+
+
     @MockK(relaxUnitFun = true)
     private lateinit var transactionRepository: TransactionRepository
     @MockK
     private lateinit var clock: Clock
+    @MockK
+    private lateinit var statementPrinter: StatementPrinter
 
     private lateinit var accountService: AccountService
 
@@ -31,6 +35,18 @@ class AccountServiceShould {
         accountService.deposit(amount)
 
         val transaction = Transaction(TODAY, amount)
+        verify { transactionRepository.add(transaction) }
+    }
+
+
+    @Test
+    fun `withdraw amount from the account`() {
+        every { clock.today() } returns TODAY
+        val amount = 100
+
+        accountService.withdraw(amount)
+
+        val transaction = Transaction(TODAY, -amount)
         verify { transactionRepository.add(transaction) }
     }
 

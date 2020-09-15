@@ -6,7 +6,7 @@ class AccountService(val clock: Clock, val transactionRepository: TransactionRep
     }
 
     fun withdraw(amount: Int) {
-        TODO("Not implemented")
+        transactionRepository.add(Transaction(clock.today(), -amount))
     }
 
     fun printStatement() {
