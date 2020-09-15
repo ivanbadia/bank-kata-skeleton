@@ -60,7 +60,7 @@ class AccountServiceShould {
     }
 
     companion object {
-        private val TODAY : LocalDate = LocalDate.now()
+        private const val TODAY : String = "15/09/2020"
         private val TRANSACTIONS: List<Transaction> = listOf(Transaction(TODAY, 300))
     }
 

@@ -23,9 +23,9 @@ internal class ConsoleStatementPrinterShould {
     @Test
     fun `print statement`() {
         val transactions: List<Transaction> = listOf(
-            Transaction(LocalDate.of(2014, 4, 1), 1000),
-            Transaction(LocalDate.of(2014, 4, 2), -100),
-            Transaction(LocalDate.of(2014, 4, 10), 500)
+            Transaction("01/04/2014", 1000),
+            Transaction("02/04/2014", -100),
+            Transaction("10/04/2014", 500)
         )
 
         statementPrinter.print(transactions)

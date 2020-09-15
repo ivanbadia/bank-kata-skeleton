@@ -10,11 +10,11 @@ internal class InMemoryTransactionRepositoryShould {
 
     @Test
     fun `retrieve transactions in order`() {
-        val firstTransaction = Transaction(LocalDate.of(2016, 9, 6), 1000)
+        val firstTransaction = Transaction("01/04/2020", 1000)
         transactionRepository.add(firstTransaction)
-        val secondTransaction = Transaction(LocalDate.of(2016, 9, 7), -1000)
+        val secondTransaction = Transaction("02/04/2020", -1000)
         transactionRepository.add(secondTransaction)
-        val thirdTransaction = Transaction(LocalDate.of(2016, 9, 8), 100)
+        val thirdTransaction = Transaction("03/04/2020", 100)
         transactionRepository.add(thirdTransaction)
 
         val transactions = transactionRepository.all()
