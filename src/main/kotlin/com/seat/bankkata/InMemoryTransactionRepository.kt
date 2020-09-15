@@ -1,12 +1,14 @@
 package com.seat.bankkata
 
 class InMemoryTransactionRepository : TransactionRepository {
+    private val transactions : MutableList<Transaction> = mutableListOf()
+
     override fun add(transaction: Transaction) {
-        TODO("Not yet implemented")
+        transactions.add(transaction)
     }
 
     override fun all(): List<Transaction> {
-        TODO("Not yet implemented")
+        return transactions.toList()
     }
 
 }
