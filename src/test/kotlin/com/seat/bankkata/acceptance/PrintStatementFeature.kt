@@ -31,19 +31,19 @@ class PrintStatementsFeature {
 
     @Test
     fun `print statement contains all transactions in descending order`() {
-        every { clock.today() } returns LocalDate.of(2014, 4, 2)
-        account.deposit(1000)
-        every { clock.today() } returns LocalDate.of(2014, 4, 10)
-        account.withdraw(100)
         every { clock.today() } returns LocalDate.of(2014, 4, 1)
+        account.deposit(1000)
+        every { clock.today() } returns LocalDate.of(2014, 4, 2)
+        account.withdraw(100)
+        every { clock.today() } returns LocalDate.of(2014, 4, 10)
         account.deposit(500)
 
         account.printStatement()
 
         assertThat(output.toString())
             .isEqualTo(
-                "DATE       | AMOUNT  | BALANCE\n" +
-                "10/04/2014 | 500.00  | 1400.00\n" +
+                "DATE | AMOUNT | BALANCE\n" +
+                "10/04/2014 | 500.00 | 1400.00\n" +
                 "02/04/2014 | -100.00 | 900.00\n" +
                 "01/04/2014 | 1000.00 | 1000.00\n"
             )
