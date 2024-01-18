@@ -1,6 +1,6 @@
 ### Objective
 
-Practice TDD with Junit 5 and Mockito.
+Practice TDD.
  
 ### Problem description - Bank kata
  
