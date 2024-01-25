@@ -1,8 +1,9 @@
 package com.seat.bankkata
 
-class AccountService(val clock: Clock) {
+class AccountService(private val clock: Clock, private val transactionRepository: TransactionRepository) {
     fun deposit(amount: Int) {
-        TODO("Not implemented")
+        val transaction = Transaction(amount, clock.today())
+        transactionRepository.add(transaction)
     }
 
     fun withdraw(amount: Int) {
