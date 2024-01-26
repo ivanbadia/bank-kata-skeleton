@@ -1,9 +1,6 @@
 package com.seat.bankkata.acceptance
 
-import com.seat.bankkata.AccountService
-import com.seat.bankkata.Clock
-import com.seat.bankkata.InMemoryTransactionRepository
-import com.seat.bankkata.TransactionRepository
+import com.seat.bankkata.*
 import io.mockk.every
 import io.mockk.mockk
 import org.assertj.core.api.Assertions.assertThat
@@ -16,6 +13,7 @@ import java.io.PrintStream
 class PrintStatementsFeature {
     private val clock: Clock = mockk<Clock>()
     private val transactionRepository: TransactionRepository = InMemoryTransactionRepository()
+    private val consoleOutput : ConsoleOutput = ConsoleOutput()
 
     private lateinit var account: AccountService
 
@@ -24,7 +22,7 @@ class PrintStatementsFeature {
 
     @BeforeEach
     fun setUp() {
-        account = AccountService(clock, transactionRepository)
+        account = AccountService(clock, transactionRepository, consoleOutput)
         redirectConsoleOutputTo(output)
     }
 
@@ -39,7 +37,7 @@ class PrintStatementsFeature {
 
         account.printStatement()
 
-        assertThat(output.toString())
+        assertThat(consoleOutput.toString())
             .isEqualTo(
                 """
                 DATE       | AMOUNT  | BALANCE
