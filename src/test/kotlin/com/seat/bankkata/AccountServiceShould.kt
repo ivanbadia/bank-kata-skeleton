@@ -13,6 +13,8 @@ class AccountServiceShould {
 
     private val output: Output = mockk<Output>(relaxUnitFun = true)
 
+    private val statementPrinter: StatementPrinter = StatementPrinter(output)
+
     private val transactionRepository: TransactionRepository = mockk<TransactionRepository>(relaxUnitFun = true)
 
     private lateinit var account: AccountService
@@ -20,27 +22,28 @@ class AccountServiceShould {
 
     @BeforeEach
     internal fun setUp() {
-        every { clock.today() } returns Companion.TODAY
-        account = AccountService(clock, transactionRepository, output)
+        account = AccountService(clock, transactionRepository, statementPrinter)
     }
 
     @Test
     fun `deposit amount into the account`() {
         val amount = 100
+        every { clock.today() } returns TODAY
 
         account.deposit(amount)
 
-        val transaction = Transaction(amount, Companion.TODAY)
+        val transaction = Transaction(amount, TODAY)
         verify { transactionRepository.add(transaction) }
     }
 
     @Test
     fun `withdraw amount from the account`() {
         val amount = 100
+        every { clock.today() } returns TODAY
 
         account.withdraw(amount)
 
-        val transaction = Transaction(-amount, Companion.TODAY)
+        val transaction = Transaction(-amount, TODAY)
         verify { transactionRepository.add(transaction) }
     }
 

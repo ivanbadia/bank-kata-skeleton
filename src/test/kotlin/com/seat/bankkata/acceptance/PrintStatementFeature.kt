@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.io.ByteArrayOutputStream
 import java.io.PrintStream
+import javax.swing.plaf.nimbus.State
 
 
 class PrintStatementsFeature {
@@ -22,7 +23,7 @@ class PrintStatementsFeature {
 
     @BeforeEach
     fun setUp() {
-        account = AccountService(clock, transactionRepository, consoleOutput)
+        account = AccountService(clock, transactionRepository, StatementPrinter(consoleOutput))
         redirectConsoleOutputTo(output)
     }
 
