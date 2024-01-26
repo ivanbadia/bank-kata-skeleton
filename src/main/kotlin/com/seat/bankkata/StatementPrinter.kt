@@ -1,14 +1,14 @@
 package com.seat.bankkata
 
-private const val STATEMENT_HEADER = "DATE | AMOUNT | BALANCE"
+private const val STATEMENT_HEADER = "DATE       | AMOUNT  | BALANCE"
 class StatementPrinter(private val output: Output) {
     fun print(transactions: List<Transaction>) {
         printHeader()
-        printStatementTransactions(transactions)
+        printStatementLinesFor(transactions)
     }
 
 
-    private fun printStatementTransactions(transactions: List<Transaction>) {
+    private fun printStatementLinesFor(transactions: List<Transaction>) {
         var balance = 0
         transactions
             .map { transaction ->
