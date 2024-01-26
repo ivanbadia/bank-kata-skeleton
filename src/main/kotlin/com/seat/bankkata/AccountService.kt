@@ -1,5 +1,7 @@
 package com.seat.bankkata
 
+private const val STATEMENT_HEADER = "DATE | AMOUNT | BALANCE"
+
 class AccountService(
     private val clock: Clock,
     private val transactionRepository: TransactionRepository,
@@ -16,19 +18,32 @@ class AccountService(
     }
 
     fun printStatement() {
-        output.printLine("DATE | AMOUNT | BALANCE")
-        val previousBalance = 0
-        var newBalance = previousBalance
+        printHeader()
+        printStatementTransactions()
+    }
+
+    private fun printStatementTransactions() {
+        var balance = 0
         transactionRepository.all()
             .map { transaction ->
-                newBalance += transaction.amount
-                "${transaction.day} | ${transaction.amount.toBigDecimal().setScale(2)} | ${
-                    newBalance.toBigDecimal().setScale(2)
-                }"
+                balance += transaction.amount
+                Pair(transaction, balance)
             }
+            .map(toLineStatement())
             .reversed()
             .forEach(output::printLine)
+    }
 
+    private fun toLineStatement(): (Pair<Transaction, Int>) -> String {
+        return { (transaction, balance) ->
+            "${transaction.day} | ${transaction.amount.toBigDecimal().setScale(2)} | ${
+                balance.toBigDecimal().setScale(2)
+            }"
+        }
+    }
+
+    private fun printHeader() {
+        output.printLine(STATEMENT_HEADER)
     }
 
 }
